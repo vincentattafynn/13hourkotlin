@@ -86,3 +86,10 @@ do{
     println(number)
 }while(number < 7)
 
+//syntax for creating arrays
+val names: Array<String> = arrayOf()
+
+.size() gets the size of the function
+.trim() removes any redundant whitespace from a string
+.lowercase() converts everything to lowercase
+.startsWith() checks if a variable starts with a certain prefix
