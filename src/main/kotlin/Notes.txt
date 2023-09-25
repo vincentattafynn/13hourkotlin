@@ -1,0 +1,88 @@
+//variable types: Int for integers, String for strings, Byte for byte, Short for short, Long for long, Char for char
+//Boolean for boolean values
+//kotlin has type inference so no need to always say what type is stored in variable
+//val is for immutable variables
+//var for mutable ones
+
+var userName: String = "Vincent"
+
+//for floats, you add an F after the number
+var myNum = 2.3F
+
+//same for double
+
+//we can shorten text to one line like this
+val text = if(num1 > 0 || num2 >0)
+    "This is text 1"
+else
+    "This is text 2"
+
+// is also the same as
+
+val text = if(num1 > 0 || num2 > 0) "This is text 1" else "This is text 2"
+
+//when syntax
+val alarm = 12
+
+when (alarm){
+    12 -> println("The time is $alarm")
+    7 -> println("The time is $alarm")
+    14 -> println("The time is $alarm")
+    else -> println("The time is $alarm")
+}
+
+//This is also the same as
+when (alarm){
+    12, 7, 14 -> println("The time is $alarm")
+    else -> println("The time is $alarm")
+}
+
+//look at the code and infer you will understand
+fun main(){
+    val alarm = 12
+
+    when (alarm){
+        12, 7, 14 -> println("The time is $alarm")
+        in 1..10 -> println("The number is in the range 1 to 10")
+        else -> println("The time is $alarm")
+    }
+}
+
+//the code below shows how a for loop works
+fun main(){
+    sum(1,2,3,45,6,5,7)
+}
+
+fun sum(vararg numbers: Int): Int{
+    var result = 0
+    for (number in numbers){
+        result += number
+    }
+    return result
+}
+
+//vararg means that variable in takes a variable number or arguments
+
+//this is to iterate instead of using the syntax above
+fun sum(vararg numbers: Int): Int {
+      numbers.forEach { println(it) }
+  }
+
+// another way to loop a certain number of times
+for (i in 1..10){
+    //do something
+}
+
+// to go from a number downto another:
+for (i in 10 downTo 1){
+}
+
+//to go up to a certain no with steps:
+for (i until 10 step 2){
+}
+
+//do while syntax
+do{
+    println(number)
+}while(number < 7)
+
