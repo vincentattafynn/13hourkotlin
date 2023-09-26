@@ -93,3 +93,218 @@ val names: Array<String> = arrayOf()
 .trim() removes any redundant whitespace from a string
 .lowercase() converts everything to lowercase
 .startsWith() checks if a variable starts with a certain prefix
+readLine() takes input from user
+
+//class example
+class Car (var name: String, var model: String, var color: String, var doors: Int){
+
+        fun move(){
+            println("The car is moving")
+        }
+
+        fun stop(){
+            println("The car has stopped")
+        }
+    }
+//object example
+my_object = car("Audi","RS7","Black",4)
+
+//class example with constructors
+class car(name:String){
+    init{
+        this.name = name
+    }
+}
+
+//another example
+class car{
+    var name: String = ""
+}
+
+//Secondary constructors
+class User(var name: String, var lastName: String, var age: Int){
+    constructor(name: String): this(name, "LastName", 0)
+    constructor(name: String, lastName: String) this(name,lastName, 0)
+}
+
+//getters and setters in classes syntax
+get(){
+    return field
+}
+set(value){
+    field = value
+}
+
+//example
+
+fun setFirstName(newValue: String){
+    this.firstName = newValue
+}
+
+fun getFirstName(): String{
+    return this.firstName
+}
+
+//using the lateinit keyword
+fun main(){
+    val user = User("Vincent", "Atta-Fynn",23)
+
+    user.favoriteMovie = "Interstellar"
+}
+
+class User(var firstName: String, var lastName: String, var age: Int){
+    lateinit var favoriteMovie: String
+}
+
+//companion objects
+//and Singleton
+
+fun main() {
+    val instance = Database.getInstance()
+    print(instance)
+}
+
+class Database private constructor() {
+
+    companion object {
+
+        private var instance: Database? = null
+
+        fun getInstance(): Database? {
+            if (instance == null) {
+                instance = Database()
+            }
+
+            return instance
+        }
+    }
+}
+
+//another way of creating a singleton
+fun main(){
+    println(Database)
+    print(Database)
+}
+
+object Database{
+    init {
+        println("Database created")
+    }
+}
+
+//lazy initialisation is done when creating a program is expensive(uses a lot of memory)
+fun main(){
+    val user1 = User("Yooku","Atta-Fynn",12)
+    val user2 by lazy{
+        User("User1","last", 34)
+    }
+
+    println(user2.firstName)//user2 is only inititalised here
+}
+
+class User(var firstName: String, var lastName: String, var age: Int){
+    init{
+        println("User: $firstName was created")
+    }
+}
+
+//enum classes are used when you want to represent a fixed set of classes
+//example
+fun main(){
+    println(Direction.WEST)
+    for (direction in Direction.values()){
+        println(direction)
+    }
+    println(Direction.NORTH.distance)//10
+    println(Direction.NORTH.direction)//north
+    println(Direction.NORTH.name)//NORTH
+
+    Direction.WEST.printData()//Direction = west and Distance =40
+}
+
+enum class Direction (var direction: String, var distance: Int){
+    NORTH("north", 10),
+    SOUTH("south",20),
+    EAST("east",15),
+    WEST("west",40);
+
+    fun printData(){
+        println("Direction = $direction and Distance =$distance")
+    }
+}
+
+//Inner classes
+fun main(){
+    val listView = ListView(arrayOf("name1","name2","name3"))
+    listView.ListViewItem().displayItem(2)
+}
+
+class ListView(val items: Array<String>){
+    inner class ListViewItem(){
+
+        fun displayItem(position: Int){
+            println(items[position])
+        }
+    }
+}
+
+//inheritance
+fun main(){
+    val view = View()
+    val button = Button("Login", "Center")
+    val roundButton = RoundButton("Sing Up","Center", 30)
+
+    view.draw()//Drawing the view.
+    button.draw()//Drawing the button Drawing the view.
+    roundButton.draw()//Drawing the round button Drawing the button Drawing the view.
+}
+
+open class View(){
+    open fun draw(){
+        println("Drawing the view.")
+    }
+}
+
+open class Button(val text: String, val orientation: String): View(){
+    override fun draw(){
+        println("Drawing the button")
+        super.draw()
+    }
+}
+
+class RoundButton(text: String, orientation: String, val corners: Int): Button(text, orientation){
+    override fun draw(){
+        println("Drawing the round button")
+        super.draw()
+    }
+}
+
+//sealed class
+fun main(){
+    val success = Result.Success("Success")
+    val error = Result.Error("Failed")
+
+    getData(success)
+}
+
+fun getData(result: Result){
+    when (result){
+        is Result.Error -> result.showMessage()
+        is Result.Success -> result.showMessage()
+        is Result.Error.RecoverableError -> result.showMessage()
+        is Result.Error.NonRecoverableError -> result.showMessage()
+    }
+}
+sealed class Result(val message: String){
+    fun showMessage(){
+        println("Result: $message")
+    }
+    class Success(message: String): Result(message)
+    sealed class Error(message: String): Result(message){
+        class RecoverableError(exception: Exception, message: String): Error(message)
+        class NonRecoverableError(exception: Exception, message: String): Error(message)
+    }
+    class Progress(message: String): Result(message)
+}
+
+//
