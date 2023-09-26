@@ -1,25 +1,7 @@
 fun main(){
-    val success = Result.Success("Success")
-
-    getData(success)
-}
-
-fun getData(result: Result){
-    when (result){
-        is Result.Error -> result.showMessage()
-        is Result.Success -> result.showMessage()
-        is Result.Error.RecoverableError -> result.showMessage()
-        is Result.Error.NonRecoverableError -> result.showMessage()
-    }
-}
-sealed class Result(val message: String){
-    fun showMessage(){
-        println("Result: $message")
-    }
-    class Success(message: String): Result(message)
-    sealed class Error(message: String): Result(message){
-        class RecoverableError(exception: Exception, message: String): Error(message)
-        class NonRecoverableError(exception: Exception, message: String): Error(message)
-    }
-    class Progress(message: String): Result(message)
+    val numbers = setOf(1,2,3,4,5)
+    println(numbers.map{if (it == 3) it * 100 else it * 10})
+    val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 4)
+    println(numbersMap.mapKeys{ it.key.uppercase()})
+    println(numbersMap.mapValues{ it.value + it.key.length})
 }

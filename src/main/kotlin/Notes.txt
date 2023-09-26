@@ -208,6 +208,7 @@ class User(var firstName: String, var lastName: String, var age: Int){
     }
 }
 
+
 //enum classes are used when you want to represent a fixed set of classes
 //example
 fun main(){
@@ -307,4 +308,122 @@ sealed class Result(val message: String){
     class Progress(message: String): Result(message)
 }
 
-//
+//abstract classes
+fun main(){
+
+}
+
+abstract class Vehicle(){
+    abstract fun move()
+
+    abstract fun stop()//abstract functions can have a body
+}
+//when you inherit from an abstract class, that class needs to implement those functions
+class Car(var name: String, var color: String, val engines: Int, val doors: Int): Vehicle(){
+     override fun move(){
+
+     }
+    override fun stop(){
+
+    }
+}
+
+//Data classes
+fun main(){
+    val num1 = User("Alex", "Dobbin", 23)
+
+}
+
+data class User(var firstName: String, var lastName: String, var age: Int)
+
+//Interfaces
+fun main(){
+
+}
+
+interface Engine{
+    fun startEngine()
+}
+
+class Car(val name: String, val color: String): Engine{
+    override fun startEngine(){
+
+    }
+}
+
+class Truck(val name: String, val color: String): Engine{
+    override fun startEngine(){
+
+    }
+}
+
+//Object Expression
+fun main(){
+    val clickListener = ClickListener()
+    val loginButton = Button("Login", 1232, object: OnClickListener{
+        override fun onClick(){
+
+        }
+    })
+    val signupButton = Button("Sign Up", 23423,object: OnClickListener{
+        override fun onClick(){
+
+        }
+    })
+
+}
+
+class Button(val text: String, val id: Int, onClickListener: OnClickListener)
+
+class ClickListener(): OnClickListener{
+    override fun onClick(){
+
+    }
+}
+interface OnClickListener{
+    fun onClick()
+}
+
+//OOP delegation
+interface Engine {
+    fun start()
+}
+
+class ElectricEngine : Engine {
+    override fun start() {
+        println("Electric engine started.")
+    }
+}
+
+class Car(private val engine: Engine) : Engine by engine {
+    // Car class delegates the 'start' method to the 'engine' instance
+}
+
+fun main() {
+    val electricEngine = ElectricEngine()
+    val car = Car(electricEngine)
+
+    car.start() // Delegated to the 'electricEngine' instance
+}
+
+//map
+fun main() {
+    val users = mutableMapOf<Int, String>(1 to "Maria", 2 to "Alex", 3 to "John")
+    users[5] = "Vlad"
+    users.remove(2)
+    users.forEach { (t, u) ->
+        println("$t and $u")
+    }
+}
+
+//mapping
+fun main(){
+    val numbers = setOf(1,2,3,4,5)
+    println(numbers.map{if (it == 3) it * 100 else it * 10})
+    val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 4)
+    println(numbersMap.mapKeys{ it.key.uppercase()})
+    println(numbersMap.mapValues{ it.value + it.key.length})
+    //[10, 20, 300, 40, 50]
+    //{KEY1=1, KEY2=2, KEY3=3, KEY4=4}
+    //{key1=5, key2=6, key3=7, key4=8}
+}
